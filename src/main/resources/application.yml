@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: blog_jpa
+
+  server:
+    port: 8080
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/jpa_demo?useSSL=false&serverTimezone=Asia/Seoul
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: asd123
+  
+  jpa:
+    hibernate:
+      ddl-auto: create
+    database-platform: org.hibernate.dialect.MySQL8Dialect  # MySQL 8용 Hibernate 방언
+
+
+  profiles:
+    active: dev # 기본 활성화 프로파일을 dev로 설정
+         
