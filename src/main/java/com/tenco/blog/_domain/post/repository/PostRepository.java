@@ -8,4 +8,4 @@ import com.tenco.blog._domain.post.entity.Article;
 public interface PostRepository extends JpaRepository<Article, Integer> {
     // 기본적인 CRUD 기능을 자동으로 제공
     // 추가적인 쿼리 메서드도 정의 가능
-}
+} 	
