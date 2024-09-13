@@ -32,3 +32,4 @@ spring:
             SQL: DEBUG           # Hibernate SQL 쿼리 출력
             type:
               descriptor.sql: TRACE  # SQL 쿼리에 바인딩된 파라미터 값 출력
+    com.tenco.blog: DEBUG  # 애플리케이션 패키지의 로그 레벨을 DEBUG로 설정

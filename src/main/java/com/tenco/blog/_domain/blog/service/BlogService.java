@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.tenco.blog._domain.blog.dto.ArticleDTO;
 import com.tenco.blog._domain.blog.entity.Article;
 import com.tenco.blog._domain.blog.repository.BlogRepository;
+import com.tenco.blog.common.errors.Exception404;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,7 +24,7 @@ public class BlogService {
 		// 비즈니스 로직이 필요하다면 작성 ..  
 		return blogRepository.save(dto.toEntity());
 	}
-	// 코드 추가 - 작업 1 
+ 
 	// 서비스 클래스의 전체글 조회 메서드
 	public List<Article> findAll() {
 	    // 전체 게시글 조회
@@ -36,5 +37,15 @@ public class BlogService {
 	    // 조회된 게시글이 없더라도 빈 리스트를 반환
 	    return articles; 
 	}
+	
+	// 코드 추가 1 
+	public Article findById(Integer id) {
+		// Type mismatch: cannot convert from Optional<Article> to Article
+		// Optional<T>는 Java 8에서 도입된 클래스이며, 
+		// 값이 존재할 수도 있고 없을 수도 있는 상황을 명확하게 처리하기 위해 사용됩니다.
+		// Optional 타입에 대해서 직접 조사하고 숙지 하세요! (문서 확인 및 검색 GPT 확인)  
+		return blogRepository.findById(id).orElseThrow(() -> new Exception404("해당 게시글이 존재하지 않습니다"));
+	}
+	
 	
 }
