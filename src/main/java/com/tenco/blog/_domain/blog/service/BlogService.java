@@ -2,6 +2,7 @@ package com.tenco.blog._domain.blog.service;
 
 import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.tenco.blog._domain.blog.dto.ArticleDTO;
@@ -47,5 +48,27 @@ public class BlogService {
 		return blogRepository.findById(id).orElseThrow(() -> new Exception404("해당 게시글이 존재하지 않습니다"));
 	}
 	
+	// SQL 에서 삭제 쿼리는 오류가 없다  0 row(s) affected 결과 수행 
+	// "Spring Data JPA의 deleteById() 메서드도 이와 유사한 방식으로 동작합니다." 
+	// 라고 보통 알려져 있지만 존재 하지 않는 엔티티(객체<-> row)삭제를 시도할 경우 
+	// 예외를 발생시킬 수 있다. 
+	public void delete(Integer id) {
+		// deleteById 리턴 타입이 void 이다.
+		// 직접 예외 처리 진행 
+		try {
+	        blogRepository.deleteById(id);
+	    } catch (EmptyResultDataAccessException e) {
+	        // 존재하지 않는 ID일 때 예외 처리
+	        throw new Exception404("해당 ID의 게시글이 존재하지 않습니다.");
+	    }
+		
+//      자주 사용 되는 방식 예시 코드 
+//		if (blogRepository.existsById(id)) {
+//	        blogRepository.deleteById(id);
+//	    } else {
+//	        throw new Exception404("해당 ID의 게시글이 존재하지 않습니다.");
+//	    }
+		
+	}
 	
 }

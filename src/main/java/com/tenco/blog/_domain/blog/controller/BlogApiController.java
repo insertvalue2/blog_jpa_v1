@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -78,6 +79,19 @@ public class BlogApiController {
 		// yml 파일 변경 
 		log.error("게시글 조회 실패: ID = {}", id);
 		return new ApiUtil<>(article);
+	}
+	
+	/**
+	 * 게시글 삭제 요청 
+	 * @param id
+	 * @return ApiUtil 
+	 */
+	@DeleteMapping("/api/articles/{id}")
+	public ApiUtil<?> deleteArticle(@PathVariable(name = "id") Integer id) {
+		// 1. 인증검사 생략 
+		// 2. 유효성 검사 생략 
+		blogService.delete(id);
+		return new ApiUtil<>(200, "게시글이 성공적으로 삭제되었습니다.");
 	}
 	
 }
