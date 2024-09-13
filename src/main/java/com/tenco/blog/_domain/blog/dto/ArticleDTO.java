@@ -1,6 +1,6 @@
-package com.tenco.blog._domain.post.dto;
+package com.tenco.blog._domain.blog.dto;
 
-import com.tenco.blog._domain.post.entity.Article;
+import com.tenco.blog._domain.blog.entity.Article;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
