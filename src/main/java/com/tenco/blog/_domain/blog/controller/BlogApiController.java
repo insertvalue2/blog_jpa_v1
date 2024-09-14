@@ -110,7 +110,6 @@ public class BlogApiController {
 		// 2. 유효성 검사
 		log.error("요청 아이디 확인 {} ", id);
 		Article updateArticle = blogService.update(id, dto);
-		
 		return new ApiUtil<>(updateArticle);
 	}
 	
