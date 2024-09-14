@@ -19,6 +19,8 @@ import com.tenco.blog.common.errors.Exception404;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 
@@ -92,6 +94,22 @@ public class BlogApiController {
 		// 2. 유효성 검사 생략 
 		blogService.delete(id);
 		return new ApiUtil<>(200, "게시글이 성공적으로 삭제되었습니다.");
+	}
+	
+	// HTTP 요청 메세지(시작줄) 경로변수 포함  id = 1 
+	// HTTP 요청 메세지(바디) json 형식 데이터를 추출 ( DTO로 파싱 처리) <- HttpMessageConverter 가 동작(Jackson  lib)    
+	/**
+	 * 게시글 수정 요청 및 응답 
+	 * @param id
+	 * @param ArticleDTO (title, content) 
+	 * @return ApiUtil  
+	 */
+	@PutMapping("/api/articles/{id}")
+	public ApiUtil<?> putMethodName(@PathVariable(name = "{id}") Integer id, @RequestBody ArticleDTO dto) {
+		// 1. 인증 검사 
+		// 2. 유효성 검사 
+		Article updateArticle = blogService.update(id, dto);
+		return new ApiUtil<>(updateArticle);
 	}
 	
 }

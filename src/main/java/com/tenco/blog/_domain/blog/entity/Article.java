@@ -1,5 +1,7 @@
 package com.tenco.blog._domain.blog.entity;
 
+import com.tenco.blog.common.errors.Exception400;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +34,21 @@ public class Article {
 	
 	@Column(name = "content", nullable = false)
 	private String content;
+	
+	// 작업 1 
+	// 도메인 모델 자체에 상태 변경 로직을 포함시켜 엔티티의 일관성과 무결성을 유지
+	// 객체 상태값 수정하기 
+	public void update(String title, String content) {
+		// 입력 값 검증 로직 추가
+        if (title == null || title.trim().isEmpty()) {
+            throw new Exception400("제목은 null이거나 빈 문자열일 수 없습니다.");
+        }
+        if (content == null || content.trim().isEmpty()) {
+            throw new Exception400("내용은 null이거나 빈 문자열일 수 없습니다.");
+        }
+        this.title = title;
+        this.content = content;
+	}
 	
 }
 
